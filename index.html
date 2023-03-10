@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" ><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+    integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ 
+    <link rel="stylesheet" href="style.css"/>
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class ="container">
+      <div class="inner">
+      <div class="box">
+        <p class ="number">
+            <img src="logo.jpg" alt="tweetme" title="TweetMe" id="tweetMe">
+        </p>
+        <div class="text">
+        <i id="lg"class ="start-quote fas fa-quote-left" ></i>   
+        <p id="quotes2"></p>
+        <p id="author2"></p>
+        </div>
+        <br>
+        <button id="newQ"class="btn">
+             New Quotes
+        </button>
+      </div>
+
+      </div>
+    </div>
+    <script>
+        let realData="";let quotesData="";let random;
+        const quotes=document.getElementById("quotes2");
+       const author=document.getElementById("author2");
+      const tweetMe=document.getElementById("tweetMe");
+      const tweetnow =()=>{let tweetPost=`https://twitter.com/intent/tweet
+        ?text=${quotesData+" BY- "+authordata}`;
+     
+               window.open(tweetPost);
+      }
+        const getit=()=>{
+        let len=realData.length;
+         random=Math.floor(Math.random()*len)
+        quotesData=realData[random];
+      quotesData=`${realData[random].text}`;
+      authordata=`${realData[random].author}`;
+       quotes.innerText=`${realData[random].text}`;
+        author.innerText=`${realData[random].author}`;
+     
+   };
+
+       const getQuotes=async()=>{
+        const api="https://type.fit/api/quotes";
+        try {
+            let data=await fetch(api);
+             realData=await data.json();
+             
+             getit();
+             //var random=Math.floor(Math.random()*length);
+             //console.log(realData[random].text);
+             
+            
+        } catch (error) {
+            
+        }
+
+       };
+       newQ.addEventListener('click',getit);
+       tweetMe.addEventListener('click',tweetnow);
+       getQuotes(); 
+       
+      // let realdata2="";
+       //let realauthor="";
+       
+       
+     
+          
+       
+     
+    </script>
+
+</body>
+</html>
